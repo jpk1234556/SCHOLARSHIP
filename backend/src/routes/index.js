@@ -1,0 +1,20 @@
+import { Router } from 'express';
+import authRoutes from './auth.js';
+import userRoutes from './users.js';
+import studentRoutes from './students.js';
+import guardianRoutes from './guardians.js';
+import sponsorRoutes from './sponsors.js';
+import eduRoutes from './educationRecords.js';
+import reportRoutes from './reports.js';
+import sponsorStudentRoutes from './sponsorStudents.js';
+
+const router = Router();
+router.use('/auth', authRoutes);
+router.use('/users', userRoutes);
+router.use('/students', studentRoutes);
+router.use('/guardians', guardianRoutes);
+router.use('/sponsors', sponsorRoutes);
+router.use('/education-records', eduRoutes);
+router.use('/reports', reportRoutes);
+router.use('/sponsor-students', sponsorStudentRoutes);
+export default router;
