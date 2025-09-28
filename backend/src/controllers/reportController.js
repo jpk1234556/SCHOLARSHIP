@@ -1,9 +1,9 @@
-import { Workbook } from 'exceljs';
+import ExcelJS from 'exceljs';
 import { Student, Guardian, Sponsor } from '../models/index.js';
 
 export const exportExcel = async (_req, res) => {
   const students = await Student.findAll({ include: [Guardian, Sponsor] });
-  const wb = new Workbook();
+  const wb = new ExcelJS.Workbook();
   const ws = wb.addWorksheet('Students');
   ws.addRow(['First Name', 'Last Name', 'Guardian', 'Sponsors']);
   students.forEach(s => {

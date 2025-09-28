@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sponsorship Management System
 
 A full-stack system to manage students, sponsors, and guardians with role-based access, reports, and dashboards.
@@ -106,3 +107,7 @@ npm run seed
 ## Notes
 - This is a production-ready scaffold with clean structure and modular code.
 - Extend controllers/validation as your needs evolve.
+=======
+# SCHOLARSHIP
+system that connects parents, students, and scholarship offers
+>>>>>>> a0fd6d4b34baefde59b85dbfc4f0b70c65f3c983

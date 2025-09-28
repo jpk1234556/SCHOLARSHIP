@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import createError from 'http-errors';
 import routes from './routes/index.js';
-import { sequelize } from './models/index.js';
+import { sequelize, User } from './models/index.js';
 
 dotenv.config();
 
@@ -28,6 +28,21 @@ app.use((err, _req, res, _next) => {
   try {
     await sequelize.authenticate();
     console.log('Database connected');
+
+    if (process.env.USE_SYNC === 'true') {
+      console.log('USE_SYNC enabled: syncing database schema...');
+      await sequelize.sync();
+      // Ensure a default admin user exists
+      const email = 'admin@example.com';
+      const existing = await User.findOne({ where: { email } });
+      if (!existing) {
+        // Lazy require bcrypt to avoid circular import and only in sync mode
+        const bcrypt = (await import('bcrypt')).default;
+        const password = await bcrypt.hash('admin123', 10);
+        await User.create({ name: 'Admin User', email, password, role: 'ADMIN' });
+        console.log('Seeded default admin user (admin@example.com / admin123)');
+      }
+    }
   } catch (e) {
     console.error('Database connection error:', e.message);
   }
